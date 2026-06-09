@@ -390,34 +390,32 @@
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Mencegah reload halaman
+            e.preventDefault(); 
 
-            // Mengambil nilai input dari form
             const usernameInput = document.getElementById('username').value;
             const passwordInput = document.getElementById('password').value;
             
             const loginCard = document.getElementById('loginCard');
             const successCard = document.getElementById('successCard');
 
-            // Validasi kecocokan username dan password
+            // Validasi login
             if (usernameInput === 'heri' && passwordInput === '123') {
-                // 1. Sembunyikan form login dengan animasi jika data benar
+                // SIMPAN STATUS LOGIN KE LOCALSTORAGE
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('username', 'Heri');
+
+                // Jalankan animasi sukses
                 loginCard.classList.add('hidden');
-                
-                // 2. Munculkan kartu animasi sukses
                 setTimeout(() => {
                     successCard.classList.remove('hidden');
                 }, 300);
 
-                // 3. Redirect ke halaman utama / dashboard setelah 2.5 detik
+                // Redirect ke halaman utama
                 setTimeout(() => {
                     window.location.href = '../index.html'; 
                 }, 2500);
             } else {
-                // Tampilkan pesan error jika data salah
                 alert('Username atau password salah! Silakan coba lagi.');
-                
-                // Mengosongkan kolom password saja demi keamanan
                 document.getElementById('password').value = '';
                 document.getElementById('password').focus();
             }
