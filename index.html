@@ -35,7 +35,7 @@ https://templatemo.com/tm-612-parallax-starter
                 <li><a href="#services">SERVICES</a></li>
                 <li><a href="#gallery">GALLERY</a></li>
                 <li><a href="#contact">CONTACT</a></li>
-                <li><a href="login/index.html">LOGIN</a></li>
+                <li><a href="login/index.html" id="loginBtn">LOGIN</a></li>
             </ul>
         </div>
     </nav>
@@ -176,5 +176,38 @@ https://templatemo.com/tm-612-parallax-starter
         <p>Copyright &copy; 2026 Your Company. Designed by <a href="https://templatemo.com" rel="nofollow" target="_blank">TemplateMo</a></p>
     </footer>
     <script src="templatemo-parallax-script.js"></script>
+
+    <footer id="templatemo-footer">
+        <p>Copyright &copy; 2026 Your Company. Designed by <a href="https://templatemo.com" rel="nofollow" target="_blank">TemplateMo</a></p>
+    </footer>
+    <script src="templatemo-parallax-script.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Mengambil status login dari localStorage browser
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const username = localStorage.getItem('username');
+            const loginBtn = document.getElementById('loginBtn');
+
+            // Jika status login bernilai true, ubah tombolnya
+            if (isLoggedIn === 'true' && username) {
+                if (loginBtn) {
+                    loginBtn.textContent = `HALO ${username.toUpperCase()}`; // Mengubah teks jadi HALO HERI
+                    loginBtn.href = "#"; // Mengosongkan link agar tidak kembali ke form login
+                    
+                    // Fitur tambahan: jika tombol diclick, berikan opsi untuk Logout
+                    loginBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        if (confirm("Apakah kamu ingin logout?")) {
+                            localStorage.clear(); // Hapus sesi login
+                            window.location.reload(); // Muat ulang halaman
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
 </body>
 </html>
