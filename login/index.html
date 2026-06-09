@@ -390,24 +390,37 @@
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Mencegah reload halaman bawaan form
+            e.preventDefault(); // Mencegah reload halaman
+
+            // Mengambil nilai input dari form
+            const usernameInput = document.getElementById('username').value;
+            const passwordInput = document.getElementById('password').value;
             
             const loginCard = document.getElementById('loginCard');
             const successCard = document.getElementById('successCard');
 
-            // 1. Sembunyikan form login dengan animasi
-            loginCard.classList.add('hidden');
-            
-            // 2. Munculkan kartu animasi sukses
-            setTimeout(() => {
-                successCard.classList.remove('hidden');
-            }, 300);
+            // Validasi kecocokan username dan password
+            if (usernameInput === 'heri' && passwordInput === '123') {
+                // 1. Sembunyikan form login dengan animasi jika data benar
+                loginCard.classList.add('hidden');
+                
+                // 2. Munculkan kartu animasi sukses
+                setTimeout(() => {
+                    successCard.classList.remove('hidden');
+                }, 300);
 
-            // 3. Redirect ke halaman utama / dashboard setelah 2.5 detik
-            setTimeout(() => {
-                // Diarahkan ke halaman index utama proyek (di luar folder login)
-                window.location.href = '../index.html'; 
-            }, 2500);
+                // 3. Redirect ke halaman utama / dashboard setelah 2.5 detik
+                setTimeout(() => {
+                    window.location.href = '../index.html'; 
+                }, 2500);
+            } else {
+                // Tampilkan pesan error jika data salah
+                alert('Username atau password salah! Silakan coba lagi.');
+                
+                // Mengosongkan kolom password saja demi keamanan
+                document.getElementById('password').value = '';
+                document.getElementById('password').focus();
+            }
         });
     </script>
 </body>
