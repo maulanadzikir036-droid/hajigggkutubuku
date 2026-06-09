@@ -35,7 +35,9 @@ https://templatemo.com/tm-612-parallax-starter
                 <li><a href="#services">SERVICES</a></li>
                 <li><a href="#gallery">GALLERY</a></li>
                 <li><a href="#contact">CONTACT</a></li>
-                <li><a href="login/index.html" id="loginBtn">LOGIN</a></li>
+                <li id="authContainer">
+    <a href="login/index.html" id="loginBtn">LOGIN</a>
+</li>
             </ul>
         </div>
     </nav>
@@ -184,6 +186,50 @@ https://templatemo.com/tm-612-parallax-starter
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const username = localStorage.getItem('username');
+            
+            const authContainer = document.getElementById('authContainer');
+            const loginBtn = document.getElementById('loginBtn');
+
+            // Jika user berhasil login
+            if (isLoggedIn === 'true' && username) {
+                if (loginBtn && authContainer) {
+                    // 1. Ubah teks tombol login menjadi "HALO HERI"
+                    loginBtn.textContent = `HALO ${username.toUpperCase()}`;
+                    loginBtn.href = "#"; // Matikan fungsi link ke halaman login
+                    loginBtn.style.cursor = "default"; // Ubah cursor agar tidak seperti link klik biasa
+                    
+                    // 2. Buat tombol LOGOUT baru secara dinamis di sampingnya
+                    const logoutBtn = document.createElement('a');
+                    logoutBtn.textContent = 'LOGOUT';
+                    logoutBtn.href = '#';
+                    logoutBtn.id = 'logoutBtn';
+                    
+                    // Memberikan sedikit jarak/style agar rapi di samping "HALO HERI"
+                    logoutBtn.style.marginLeft = '15px';
+                    logoutBtn.style.color = '#ff4d4d'; // Memberi warna merah khusus tombol logout
+                    logoutBtn.style.fontWeight = '600';
+                    
+                    // 3. Tambahkan fungsi klik pada tombol LOGOUT
+                    logoutBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        if (confirm("Apakah kamu yakin ingin logout?")) {
+                            localStorage.clear(); // Hapus sesi login heri
+                            window.location.reload(); // Refresh halaman untuk mengembalikan menu ke awal
+                        }
+                    });
+
+                    // 4. Masukkan tombol logout ke dalam menu navigasi di samping HALO HERI
+                    authContainer.appendChild(logoutBtn);
+                }
+            }
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
             // Mengambil status login dari localStorage browser
             const isLoggedIn = localStorage.getItem('isLoggedIn');
             const username = localStorage.getItem('username');
@@ -209,5 +255,4 @@ https://templatemo.com/tm-612-parallax-starter
     </script>
 </body>
 </html>
-</body>
-</html>
+
